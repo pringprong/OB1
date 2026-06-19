@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS chatgpt_conversations (
     processed_at TIMESTAMPTZ DEFAULT now(),
 
     -- Embedding of the 128w summary (for conversation-level semantic search)
-    embedding vector(1536)
+    embedding vector(1024)
 );
 
 COMMENT ON TABLE chatgpt_conversations IS 'ChatGPT conversation summaries with pyramid detail levels. Populated by import-chatgpt.py --store-conversations.';

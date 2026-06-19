@@ -126,7 +126,7 @@ async function getEmbedding(text: string): Promise<number[]> {
   const r = await fetch(`${OPENROUTER_BASE}/embeddings`, {
     method: "POST",
     headers: { "Authorization": `Bearer ${OPENROUTER_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "openai/text-embedding-3-small", input: text }),
+    body: JSON.stringify({ model: "intfloat/multilingual-e5-large", input: text }),
   });
   const d = await r.json();
   return d.data[0].embedding;
@@ -137,7 +137,7 @@ async function extractMetadata(text: string): Promise<Record<string, unknown>> {
     method: "POST",
     headers: { "Authorization": `Bearer ${OPENROUTER_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "openai/gpt-4o-mini",
+      model: "deepseek/deepseek-v4-flash",
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: `Extract metadata from the user's captured thought. Return JSON with:
@@ -292,7 +292,7 @@ Then open Supabase dashboard → Table Editor → thoughts. You should see one r
 ## Expected Outcome
 
 Every message you post in your Slack capture channel automatically gets:
-- Embedded with a 1536-dimensional vector for semantic search
+- Embedded with a 1024-dimensional vector for semantic search
 - Classified by type (observation, task, idea, reference, person_note)
 - Tagged with topics, people, action items, and dates (where applicable)
 - Stored in your Supabase `thoughts` table

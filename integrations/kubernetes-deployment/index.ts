@@ -33,11 +33,11 @@ const DB_PASSWORD = Deno.env.get("DB_PASSWORD")!;
 
 const EMBEDDING_API_BASE = Deno.env.get("EMBEDDING_API_BASE") || "https://openrouter.ai/api/v1";
 const EMBEDDING_API_KEY = Deno.env.get("EMBEDDING_API_KEY") || Deno.env.get("OPENROUTER_API_KEY") || "";
-const EMBEDDING_MODEL = Deno.env.get("EMBEDDING_MODEL") || "openai/text-embedding-3-small";
+const EMBEDDING_MODEL = Deno.env.get("EMBEDDING_MODEL") || "intfloat/multilingual-e5-large";
 
 const CHAT_API_BASE = Deno.env.get("CHAT_API_BASE") || EMBEDDING_API_BASE;
 const CHAT_API_KEY = Deno.env.get("CHAT_API_KEY") || EMBEDDING_API_KEY;
-const CHAT_MODEL = Deno.env.get("CHAT_MODEL") || "openai/gpt-4o-mini";
+const CHAT_MODEL = Deno.env.get("CHAT_MODEL") || "deepseek/deepseek-v4-flash";
 
 const MCP_ACCESS_KEY = Deno.env.get("MCP_ACCESS_KEY")!;
 

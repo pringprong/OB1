@@ -100,7 +100,7 @@ On Windows, the importer reads export JSON files as UTF-8 explicitly, so convers
 Open your Supabase dashboard → Table Editor → `thoughts`. You should see new rows with:
 - `content`: prefixed with `[ChatGPT: title | date]`, followed by a self-contained thought statement
 - `metadata`: includes `source: "chatgpt"`, thought `type`, `topics`, `people`, `confidence`, model, conversation URL, and more
-- `embedding`: a 1536-dimension vector (generated from the thought content, not the prefix)
+- `embedding`: a 1024-dimension vector (generated from the thought content, not the prefix)
 
 ### 8. Test a search
 
@@ -180,7 +180,7 @@ The LLM is instructed to:
 - Preserve personal context that looks ephemeral but encodes life situation
 - Return empty for conversations that are just generic Q&A, creative tasks, or ephemeral lookups
 
-**Stage 3: Ingestion** — Each thought gets a vector embedding (text-embedding-3-small, 1536 dimensions) generated from the thought content itself (not the `[ChatGPT: title]` prefix). Before insertion, semantic deduplication checks for near-duplicates using `match_thoughts` RPC at a 0.92 similarity threshold. Each thought is inserted into your `thoughts` table with enriched metadata including model, conversation type, voice, and confidence.
+**Stage 3: Ingestion** — Each thought gets a vector embedding (text-embedding-3-small, 1024 dimensions) generated from the thought content itself (not the `[ChatGPT: title]` prefix). Before insertion, semantic deduplication checks for near-duplicates using `match_thoughts` RPC at a 0.92 similarity threshold. Each thought is inserted into your `thoughts` table with enriched metadata including model, conversation type, voice, and confidence.
 
 ### Deduplication
 
@@ -233,7 +233,7 @@ The pyramid summaries are generated in the same LLM call as the thought extracti
 | `--focus TOPICS` | Focus extraction on specific topics (preset or custom text — see below) | All topics |
 | `--store-conversations` | Also store conversation summaries with pyramid detail levels (requires `schema.sql`) | Off |
 | `--model openrouter` | LLM backend for extraction: `openrouter` or `ollama` | `openrouter` |
-| `--openrouter-model ID` | Which OpenRouter model to use | `openai/gpt-4o-mini` |
+| `--openrouter-model ID` | Which OpenRouter model to use | `deepseek/deepseek-v4-flash` |
 | `--ollama-model NAME` | Which Ollama model to use (requires `--model ollama`) | `qwen3` |
 | `--raw` | Skip LLM extraction, ingest user messages as-is | Off |
 | `--verbose` | Print full thought text during processing | Off |

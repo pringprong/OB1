@@ -8,7 +8,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE TABLE IF NOT EXISTS public.thoughts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   content TEXT NOT NULL,
-  embedding vector(1536),
+  embedding vector(1024),
   metadata JSONB DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
@@ -39,7 +39,7 @@ CREATE TRIGGER thoughts_updated_at
   EXECUTE FUNCTION public.update_updated_at();
 
 CREATE OR REPLACE FUNCTION public.match_thoughts(
-  query_embedding vector(1536),
+  query_embedding vector(1024),
   match_threshold FLOAT DEFAULT 0.7,
   match_count INT DEFAULT 10,
   filter JSONB DEFAULT '{}'::jsonb

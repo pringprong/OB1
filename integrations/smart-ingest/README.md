@@ -276,7 +276,7 @@ The function runs a pre-flight sensitivity check and blocks content matching res
 The smart ingest tables schema has not been applied, or the base OB1 RPCs are missing. Verify that `ingestion_jobs`, `ingestion_items`, and the `upsert_thought`/`match_thoughts` RPCs exist in your database.
 
 **Embedding dimension mismatch**
-The function expects `vector(1536)` embeddings (OpenAI text-embedding-3-small). If your database uses a different embedding model or dimension, update the embedding configuration in `_shared/config.ts`.
+The function expects `vector(1024)` embeddings (OpenAI text-embedding-3-small). If your database uses a different embedding model or dimension, update the embedding configuration in `_shared/config.ts`.
 
 **Jobs stuck in "extracting" status**
 If the LLM call fails mid-extraction, the job is marked as "failed" with an error message. Check the `error_message` column in `ingestion_jobs` for details. You can reprocess by sending the same text with `reprocess: true`.

@@ -85,7 +85,7 @@ comment on function thought_stats_summary() is
 create or replace function upsert_thought(
   p_content text,
   p_payload jsonb,
-  p_embedding vector(1536)
+  p_embedding vector(1024)
 )
 returns jsonb
 language plpgsql

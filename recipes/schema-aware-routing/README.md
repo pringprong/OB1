@@ -84,7 +84,7 @@ create extension if not exists vector;
 create table thoughts (
   id uuid primary key default gen_random_uuid(),
   content text not null,
-  embedding vector(1536),
+  embedding vector(1024),
   domain text default 'personal',
   status text default 'active',
   source text default 'api',
@@ -111,7 +111,7 @@ create table interactions (
   person_id uuid references people(id),
   note text,
   source text default 'api',
-  embedding vector(1536),
+  embedding vector(1024),
   created_at timestamptz default now()
 );
 
@@ -161,7 +161,7 @@ Open `index.ts` and find the two placeholder functions:
 Swap out the `throw` with your LLM API call. The system prompt (`EXTRACTION_SYSTEM_PROMPT`) is already defined for you. Send it as the system message and the input text as the user message. Request JSON response format.
 
 **2. Replace `getEmbedding()`:**
-Swap out the `throw` with your embedding API call. We used `text-embedding-3-small` from OpenAI (1536 dimensions). If you use a different model, update the `vector(1536)` in the SQL above to match your model's dimensions.
+Swap out the `throw` with your embedding API call. We used `text-embedding-3-small` from OpenAI (1536 dimensions). If you use a different model, update the `vector(1024)` in the SQL above to match your model's dimensions.
 
 > [!TIP]
 > You can use OpenRouter as a proxy to access multiple LLM providers with one API key. That's what I use — it lets me swap models without changing code.
@@ -211,7 +211,7 @@ async function extractMetadata(text: string) {
     method: "POST",
     headers: { Authorization: `Bearer ${OPENROUTER_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "openai/gpt-4o-mini",
+      model: "deepseek/deepseek-v4-flash",
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: EXTRACTION_SYSTEM_PROMPT },
@@ -226,7 +226,7 @@ async function getEmbedding(text: string): Promise<number[]> {
   const response = await fetch("https://openrouter.ai/api/v1/embeddings", {
     method: "POST",
     headers: { Authorization: `Bearer ${OPENROUTER_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "openai/text-embedding-3-small", input: text }),
+    body: JSON.stringify({ model: "intfloat/multilingual-e5-large", input: text }),
   });
   return (await response.json()).data[0].embedding;
 }
@@ -234,7 +234,7 @@ async function getEmbedding(text: string): Promise<number[]> {
 
 Key differences from OpenAI direct:
 - **Base URL:** `https://openrouter.ai/api/v1` instead of `https://api.openai.com/v1`
-- **Model strings:** `openai/gpt-4o-mini` and `openai/text-embedding-3-small` (prefixed with the provider)
+- **Model strings:** `deepseek/deepseek-v4-flash` and `intfloat/multilingual-e5-large` (prefixed with the provider)
 - **Same everything else:** Same `Authorization: Bearer` header pattern, same JSON shapes, same `response_format: { type: "json_object" }` support
 
 This is the exact same provider/config pair the core OB1 MCP server (`supabase/functions/open-brain-mcp/index.ts`) uses, so if you have OB1 running, these snippets reuse your existing setup.
@@ -346,7 +346,7 @@ The `namesAreSimilar()` function intentionally has conservative matching — it 
 
 ### "Embeddings dimension mismatch"
 
-If you switched from `text-embedding-3-small` (1536 dimensions) to a different model, you need to update the `vector(1536)` in the SQL schema to match. For example, `text-embedding-3-large` uses 3072 dimensions. Drop and recreate the tables with the correct dimension, or alter the columns:
+If you switched from `text-embedding-3-small` (1024 dimensions) to a different model, you need to update the `vector(1024)` in the SQL schema to match. For example, `text-embedding-3-large` uses 3072 dimensions. Drop and recreate the tables with the correct dimension, or alter the columns:
 
 <details>
 <summary>📋 <strong>SQL: Change embedding dimensions</strong> (click to expand)</summary>

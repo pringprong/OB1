@@ -301,7 +301,7 @@ async function listBatchCandidates(sb, minLinked, limit) {
 
 async function embedQuery(env, text) {
   // Embedding provider is decoupled from the chat LLM. Defaults to OpenAI
-  // text-embedding-3-small at 1536 dims (matches the stock OB1 vector(1536)
+  // text-embedding-3-small at 1024 dims (matches the stock OB1 vector(1024)
   // column). Users can override via env.
   const base = (env.EMBEDDING_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
   const key = env.EMBEDDING_API_KEY;
@@ -325,7 +325,7 @@ async function embedQuery(env, text) {
 // match_thoughts-signature probe, which is only needed for --semantic-expand;
 // thought-mode only writes embeddings, it doesn't query them.
 let _embedDimCache = null;
-async function preflightEmbeddingDim(sb, env, expected = 1536, checkMatchRpc = true) {
+async function preflightEmbeddingDim(sb, env, expected = 1024, checkMatchRpc = true) {
   if (_embedDimCache !== null) return _embedDimCache;
   const probe = await embedQuery(env, "dimension check");
   _embedDimCache = Array.isArray(probe) ? probe.length : 0;
@@ -891,7 +891,7 @@ async function main() {
   // is on. Users without match_thoughts can still use --output-mode=thought.
   if (args.semanticExpand || args.outputMode === "thought") {
     try {
-      await preflightEmbeddingDim(sb, env, 1536, args.semanticExpand);
+      await preflightEmbeddingDim(sb, env, 1024, args.semanticExpand);
     } catch (err) {
       const label = args.semanticExpand
         ? "--semantic-expand"

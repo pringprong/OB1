@@ -15,7 +15,7 @@ export const APP_ENV = {
   supabaseServiceRoleKey: requireEnv('SUPABASE_SERVICE_ROLE_KEY'),
   openrouterApiKey: process.env.OPENROUTER_API_KEY ?? '',
   openrouterEmbeddingModel:
-    process.env.OPENROUTER_EMBEDDING_MODEL ?? 'openai/text-embedding-3-small',
+    process.env.OPENROUTER_EMBEDDING_MODEL ?? 'intfloat/multilingual-e5-large',
 }
 
 export const supabase = createClient(

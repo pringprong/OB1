@@ -57,6 +57,7 @@ KNOWN_DIMENSIONS = {
     "nomic-embed-text": 768,
     "mxbai-embed-large": 1024,
     "rjmalagon/gte-qwen2-1.5b-instruct-embed-f16": 1536,
+    "intfloat/multilingual-e5-large": 1024,
 }
 
 
@@ -279,9 +280,9 @@ def main():
     print(f"  Ollama:   {ollama_url}")
     print(f"  Source:   {args.source}")
     print(f"  Thoughts: {len(thoughts)}")
-    if args.model in KNOWN_DIMENSIONS and KNOWN_DIMENSIONS[args.model] != 1536:
+    if args.model in KNOWN_DIMENSIONS and KNOWN_DIMENSIONS[args.model] != 1024:
         print(f"\n  NOTE: {args.model} produces {KNOWN_DIMENSIONS[args.model]}-dim embeddings.")
-        print(f"  The default Open Brain schema uses vector(1536).")
+        print(f"  The default Open Brain schema uses vector(1024).")
         print(f"  Adjust your schema to match: ALTER TABLE thoughts ALTER COLUMN embedding TYPE vector({KNOWN_DIMENSIONS[args.model]});")
     print()
 

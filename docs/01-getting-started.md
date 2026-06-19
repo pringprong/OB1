@@ -67,7 +67,7 @@ In the left sidebar: **SQL Editor → New query** → paste and Run:
 create table thoughts (
   id uuid default gen_random_uuid() primary key,
   content text not null,
-  embedding vector(1536),
+  embedding vector(1024),
   metadata jsonb default '{}'::jsonb,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
@@ -109,7 +109,7 @@ New query → paste and Run:
 
 ```sql
 create or replace function match_thoughts(
-  query_embedding vector(1536),
+  query_embedding vector(1024),
   match_threshold float default 0.7,
   match_count int default 10,
   filter jsonb default '{}'::jsonb
@@ -904,7 +904,7 @@ The metadata extraction is best-effort — the LLM is making its best guess with
 <details>
 <summary>🔍 <strong>How It Works Under the Hood</strong></summary>
 
-**When you capture from any AI via MCP:** your AI client sends the text to the `capture_thought` tool → the MCP server generates an embedding (1536-dimensional vector of meaning) AND extracts metadata via LLM in parallel → both get stored as a single row in Supabase → confirmation returned to your AI.
+**When you capture from any AI via MCP:** your AI client sends the text to the `capture_thought` tool → the MCP server generates an embedding (1024-dimensional vector of meaning) AND extracts metadata via LLM in parallel → both get stored as a single row in Supabase → confirmation returned to your AI.
 
 **When you search your brain:** your AI client sends the query to the MCP Edge Function → the function generates an embedding of your question → Supabase matches it against every stored thought by vector similarity → results come back ranked by meaning, not keywords.
 
@@ -912,7 +912,7 @@ The embedding is what makes retrieval powerful. "Sarah's thinking about leaving"
 
 ### Swapping Models Later
 
-Because you're using OpenRouter, you can swap models by editing the model strings in the Edge Function code and redeploying. Browse available models at [openrouter.ai/models](https://openrouter.ai/models). Just make sure embedding dimensions match (1536 for the current setup).
+Because you're using OpenRouter, you can swap models by editing the model strings in the Edge Function code and redeploying. Browse available models at [openrouter.ai/models](https://openrouter.ai/models). Just make sure embedding dimensions match (1024 for the current setup).
 
 </details>
 

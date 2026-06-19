@@ -356,7 +356,7 @@ def _parse_extraction_response(raw_content, store_conversations=False):
     return extraction
 
 
-def summarize_openrouter(title, date_str, dialogue_text, message_count, model_slug, store_conversations=False, openrouter_model="openai/gpt-4o-mini", focus_instruction=""):
+def summarize_openrouter(title, date_str, dialogue_text, message_count, model_slug, store_conversations=False, openrouter_model="deepseek/deepseek-v4-flash", focus_instruction=""):
     """Extract knowledge from a conversation using OpenRouter."""
     if not OPENROUTER_API_KEY:
         print("Error: OPENROUTER_API_KEY environment variable required for extraction.")
@@ -461,7 +461,7 @@ def summarize(title, date_str, dialogue_text, message_count, model_slug, args):
 
 
 def generate_embedding(text):
-    """Generate a 1536-dim embedding via OpenRouter (text-embedding-3-small)."""
+    """Generate a 1024-dim embedding via OpenRouter (text-embedding-3-small)."""
     truncated = text[:8000]
 
     resp = http_post_with_retry(
@@ -471,7 +471,7 @@ def generate_embedding(text):
             "Content-Type": "application/json",
         },
         body={
-            "model": "openai/text-embedding-3-small",
+            "model": "intfloat/multilingual-e5-large",
             "input": truncated,
         },
     )
@@ -734,7 +734,7 @@ Examples:
     parser.add_argument("--min-messages", type=int, default=0, help="Override minimum message count for filtering")
     parser.add_argument("--min-words", type=int, default=0, help="Override minimum word count for borderline filtering (default: 50)")
     parser.add_argument("--max-words", type=int, default=50000, help="Skip conversations exceeding this word count (default: 50000, ~$1+ per conversation with gpt-4o)")
-    parser.add_argument("--openrouter-model", default="openai/gpt-4o-mini", help="OpenRouter model for extraction (default: openai/gpt-4o-mini)")
+    parser.add_argument("--openrouter-model", default="deepseek/deepseek-v4-flash", help="OpenRouter model for extraction (default: deepseek/deepseek-v4-flash)")
     parser.add_argument("--focus", type=str, default=None, metavar="TOPICS", help="""\
 Focus extraction on specific topics. Accepts a preset name or custom description.
 

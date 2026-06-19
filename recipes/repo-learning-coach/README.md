@@ -86,7 +86,7 @@ cp .env.example .env
 SUPABASE_URL=https://your-project-ref.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 OPENROUTER_API_KEY=your-openrouter-key
-OPENROUTER_EMBEDDING_MODEL=openai/text-embedding-3-small
+OPENROUTER_EMBEDDING_MODEL=intfloat/multilingual-e5-large
 PORT=8787
 ```
 

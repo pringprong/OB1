@@ -282,7 +282,7 @@ async function summarizeDay(category, day, entries) {
       "Content-Type": "application/json",
     },
     {
-      model: "openai/gpt-4o-mini",
+      model: "deepseek/deepseek-v4-flash",
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: SUMMARIZATION_PROMPT },
@@ -321,7 +321,7 @@ async function generateEmbedding(text) {
       "Content-Type": "application/json",
     },
     {
-      model: "openai/text-embedding-3-small",
+      model: "intfloat/multilingual-e5-large",
       input: truncated,
     }
   );

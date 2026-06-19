@@ -64,7 +64,7 @@ After running the migration:
 ```sql
 select *
 from match_thoughts_recency(
-  query_embedding := '[...]'::vector(1536),
+  query_embedding := '[...]'::vector(1024),
   match_threshold := 0.7,
   match_count     := 10
 );
@@ -75,7 +75,7 @@ from match_thoughts_recency(
 ```sql
 select *
 from match_thoughts_recency(
-  query_embedding := '[...]'::vector(1536),
+  query_embedding := '[...]'::vector(1024),
   match_threshold := 0.7,
   match_count     := 10,
   recency_weight  := 0.2,   -- 20% weight on recency
@@ -88,7 +88,7 @@ from match_thoughts_recency(
 ```sql
 select *
 from match_thoughts_recency(
-  query_embedding := '[...]'::vector(1536),
+  query_embedding := '[...]'::vector(1024),
   match_threshold := 0.6,
   match_count     := 10,
   recency_weight  := 0.7,

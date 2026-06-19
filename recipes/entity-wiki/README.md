@@ -192,7 +192,7 @@ node generate-wiki.mjs --entity "ExoCortex" --semantic-expand
 **Override the model per run:**
 
 ```bash
-node generate-wiki.mjs --entity "Alan" --model "openai/gpt-4o-mini"
+node generate-wiki.mjs --entity "Alan" --model "deepseek/deepseek-v4-flash"
 ```
 
 Run `node generate-wiki.mjs --help` for the full flag list.
@@ -218,7 +218,7 @@ Pick the mode that matches how you plan to consume the wikis. Each has its own c
 
 Each wiki is **one** LLM call. Input size scales with the number of linked + semantic snippets sent (capped at `--max-linked` + `--max-semantic`, default 25 + 15, each truncated to 300 chars). A typical page uses roughly 2–6k input tokens and produces up to 2048 output tokens.
 
-At OpenRouter pricing for `anthropic/claude-haiku-4-5` (~$0.80 per million input, ~$4 per million output), a single wiki costs roughly **$0.01–$0.02**. A batch of 25 entities runs around **$0.25–$0.50**. Substitute `openai/gpt-4o-mini` or a local Ollama model to drop that by 10x or more.
+At OpenRouter pricing for `anthropic/claude-haiku-4-5` (~$0.80 per million input, ~$4 per million output), a single wiki costs roughly **$0.01–$0.02**. A batch of 25 entities runs around **$0.25–$0.50**. Substitute `deepseek/deepseek-v4-flash` or a local Ollama model to drop that by 10x or more.
 
 Bounding behavior:
 
@@ -279,7 +279,7 @@ GRANT EXECUTE ON FUNCTION public.entities_with_min_links(int, int) TO service_ro
 </details>
 
 **Issue: LLM returns empty or malformed markdown**
-Some smaller models ignore structural instructions. Try a more capable model (`--model "anthropic/claude-haiku-4-5"` or `--model "openai/gpt-4o-mini"`). If you are running a local Ollama model, pick one with strong instruction-following (`llama3.1:70b`, `qwen2.5:32b`).
+Some smaller models ignore structural instructions. Try a more capable model (`--model "anthropic/claude-haiku-4-5"` or `--model "deepseek/deepseek-v4-flash"`). If you are running a local Ollama model, pick one with strong instruction-following (`llama3.1:70b`, `qwen2.5:32b`).
 
 **Issue: `LLM call failed: 401`**
 `LLM_API_KEY` is missing or wrong. For OpenRouter, the key starts with `sk-or-...`. For OpenAI, `sk-...`. For a local Ollama server, any non-empty string works and you should set `LLM_BASE_URL=http://localhost:11434/v1`.

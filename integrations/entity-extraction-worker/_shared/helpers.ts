@@ -97,7 +97,7 @@ export function safeEmbedding(emb: number[] | null | undefined): number[] | unde
 export async function embedText(text: string): Promise<number[]> {
   const openRouterKey = Deno.env.get("OPENROUTER_API_KEY") ?? "";
   const openAiKey = Deno.env.get("OPENAI_API_KEY") ?? "";
-  const openRouterModel = Deno.env.get("OPENROUTER_EMBEDDING_MODEL") ?? "openai/text-embedding-3-small";
+  const openRouterModel = Deno.env.get("OPENROUTER_EMBEDDING_MODEL") ?? "intfloat/multilingual-e5-large";
   const openAiModel = Deno.env.get("OPENAI_EMBEDDING_MODEL") ?? "text-embedding-3-small";
 
   // Primary: OpenRouter

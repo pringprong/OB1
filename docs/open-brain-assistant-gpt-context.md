@@ -64,7 +64,7 @@ The core user journey is:
 The base Open Brain system has three layers:
 
 1. Storage: Supabase Postgres with pgvector. The primary table is `thoughts`.
-2. Intelligence: OpenRouter generates embeddings with `openai/text-embedding-3-small` and extracts simple metadata with `openai/gpt-4o-mini`.
+2. Intelligence: OpenRouter generates embeddings with `intfloat/multilingual-e5-large` and extracts simple metadata with `deepseek/deepseek-v4-flash`.
 3. Access: a Supabase Edge Function exposes MCP tools to AI clients.
 
 The core MCP server in `server/index.ts` exposes:
@@ -98,7 +98,7 @@ Important details:
 
 - `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are automatically available inside Supabase Edge Functions.
 - Newer Supabase projects may not grant service role table permissions by default. The user must run the documented `GRANT` SQL for the `thoughts` table.
-- The base embedding dimension is 1536. If users change embedding models, dimensions must still match the vector column and search function.
+- The base embedding dimension is 1024. If users change embedding models, dimensions must still match the vector column and search function.
 - The `upsert_thought` function deduplicates by normalized content fingerprint and merges metadata on duplicate capture.
 - Users should save all credentials in the provided credential tracker spreadsheet before moving between services.
 
@@ -326,7 +326,7 @@ Capture decisions, preferences, people context, project context, recurring expla
 
 Why use OpenRouter?
 
-OpenRouter gives a simple AI gateway for embeddings and metadata extraction. The base guide uses `openai/text-embedding-3-small` for embeddings and `openai/gpt-4o-mini` for metadata extraction.
+OpenRouter gives a simple AI gateway for embeddings and metadata extraction. The base guide uses `intfloat/multilingual-e5-large` for embeddings and `deepseek/deepseek-v4-flash` for metadata extraction.
 
 Can users switch providers or models?
 

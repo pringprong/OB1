@@ -394,7 +394,7 @@ const dbChecks = [
         method: "POST",
         headers: SVC_HEADERS,
         body: JSON.stringify({
-          query_embedding: new Array(1536).fill(0),
+          query_embedding: new Array(1024).fill(0),
           match_threshold: 0.0,
           match_count: 1,
         }),

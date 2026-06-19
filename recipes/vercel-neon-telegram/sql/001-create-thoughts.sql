@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 CREATE TABLE thoughts (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   content TEXT NOT NULL,
-  embedding VECTOR(1536),
+  embedding VECTOR(1024),
   metadata JSONB DEFAULT '{}'::jsonb,
   source TEXT NOT NULL DEFAULT 'mcp',
   created_at TIMESTAMPTZ DEFAULT now(),

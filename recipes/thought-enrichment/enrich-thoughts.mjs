@@ -640,7 +640,7 @@ function buildConfig(args, env) {
     anthropicModel: args.model || env.ANTHROPIC_CLASSIFIER_MODEL || "claude-3-5-haiku-20241022",
     // OpenRouter
     openRouterApiKey: env.OPENROUTER_API_KEY || "",
-    openRouterModel: args.model || env.OPENROUTER_CLASSIFIER_MODEL || "openai/gpt-4o-mini",
+    openRouterModel: args.model || env.OPENROUTER_CLASSIFIER_MODEL || "deepseek/deepseek-v4-flash",
     // Supabase
     supabaseUrl: env.SUPABASE_URL || "",
     supabaseServiceRoleKey: env.SUPABASE_SERVICE_ROLE_KEY || "",

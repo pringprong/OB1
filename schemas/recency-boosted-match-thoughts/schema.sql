@@ -35,7 +35,7 @@
 SET search_path TO public, extensions;
 
 CREATE OR REPLACE FUNCTION match_thoughts_recency(
-  query_embedding  vector(1536),
+  query_embedding  vector(1024),
   match_threshold  float   DEFAULT 0.7,
   match_count      int     DEFAULT 10,
   filter           jsonb   DEFAULT '{}'::jsonb,
@@ -107,5 +107,5 @@ BEGIN
 END;
 $$;
 
-COMMENT ON FUNCTION match_thoughts_recency(vector(1536), float, int, jsonb, float, float) IS
+COMMENT ON FUNCTION match_thoughts_recency(vector(1024), float, int, jsonb, float, float) IS
   'Recency-boosted nearest-neighbor search. Blended score = similarity * (1 - recency_weight) + exp(-age_days/half_life_days) * recency_weight. recency_weight defaults to 0 (pure similarity, identical to match_thoughts). half_life_days defaults to 90. Threshold is applied on raw cosine similarity before the blend. Returns the same columns as match_thoughts.';

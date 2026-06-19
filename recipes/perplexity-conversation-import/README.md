@@ -148,7 +148,7 @@ Summary:
 - Memory entries skip this stage — they're already concise summaries from Perplexity
 
 **Stage 3: Ingest**
-- Generates a 1536-dim embedding per thought (text-embedding-3-small via OpenRouter)
+- Generates a 1024-dim embedding per thought (text-embedding-3-small via OpenRouter)
 - Inserts into the `thoughts` table via Supabase REST API
 - Attaches metadata: source, title/date/UUID (conversations), memory key/confidence (memory)
 - Preserves original timestamps — the `created_at` column is set to the Perplexity export's `CREATED` or `FIRST_CREATED_AT`, not "now"
@@ -248,7 +248,7 @@ Check your OpenRouter API key has credits and access to `text-embedding-3-small`
 curl https://openrouter.ai/api/v1/embeddings \
   -H "Authorization: Bearer $OPENROUTER_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"model":"openai/text-embedding-3-small","input":"test"}'
+  -d '{"model":"intfloat/multilingual-e5-large","input":"test"}'
 ```
 
 **Re-running imports**

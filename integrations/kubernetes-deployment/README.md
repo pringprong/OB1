@@ -153,7 +153,7 @@ To use a local model (e.g., Ollama, BitNet, llama.cpp) for embeddings and chat, 
   value: "your-model-name"
 ```
 
-If your embedding model produces a different vector dimension than 1536, update the `vector(1536)` in the init SQL to match.
+If your embedding model produces a different vector dimension than 1024, update the `vector(1024)` in the init SQL to match.
 
 ## Expected Outcome
 
@@ -178,7 +178,7 @@ After deployment you should see:
 
 **Embedding dimension mismatch**
 - If you see errors about vector dimensions, your embedding model produces vectors of a different size than expected
-- Check your model's output dimension and update `vector(1536)` in the init SQL ConfigMap
+- Check your model's output dimension and update `vector(1024)` in the init SQL ConfigMap
 - Drop and recreate the `thoughts` table if changing dimensions on an existing database
 
 **Connection refused to database**

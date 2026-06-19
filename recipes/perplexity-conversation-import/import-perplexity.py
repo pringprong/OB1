@@ -477,7 +477,7 @@ def summarize_openrouter(title, date_str, answer_text):
             "Content-Type": "application/json",
         },
         body={
-            "model": "openai/gpt-4o-mini",
+            "model": "deepseek/deepseek-v4-flash",
             "response_format": {"type": "json_object"},
             "messages": [
                 {"role": "system", "content": SUMMARIZATION_PROMPT},
@@ -555,7 +555,7 @@ def summarize(title, date_str, answer_text, args):
 
 
 def generate_embedding(text):
-    """Generate a 1536-dim embedding via OpenRouter (text-embedding-3-small)."""
+    """Generate a 1024-dim embedding via OpenRouter (text-embedding-3-small)."""
     truncated = text[:8000]
 
     resp = http_post_with_retry(
@@ -565,7 +565,7 @@ def generate_embedding(text):
             "Content-Type": "application/json",
         },
         body={
-            "model": "openai/text-embedding-3-small",
+            "model": "intfloat/multilingual-e5-large",
             "input": truncated,
         },
     )

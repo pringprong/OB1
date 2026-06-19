@@ -63,7 +63,7 @@ except ImportError:
 
 READWISE_BASE = "https://readwise.io/api/v2"
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
-EMBEDDING_MODEL = "openai/text-embedding-3-small"
+EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
 EMBEDDING_BATCH_SIZE = 100           # OpenRouter API calls; throughput-bound, safe to be large
 INSERT_BATCH_SIZE = 25               # Supabase inserts; bound by pgvector index maintenance cost
 READWISE_PAGE_SIZE = 1000            # Export endpoint max
@@ -183,7 +183,7 @@ def insert_thoughts(supabase, thoughts: list[dict]) -> None:
     """Insert thoughts, splitting the batch recursively on statement timeout.
 
     Supabase's default statement_timeout for the authenticated role is ~8s.
-    Inserting many 1536-dim vectors at once occasionally triggers pgvector
+    Inserting many 1024-dim vectors at once occasionally triggers pgvector
     index maintenance that blows past that. Splitting the batch in half on
     timeout and retrying is almost always enough to get under the limit.
     """

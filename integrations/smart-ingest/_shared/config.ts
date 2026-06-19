@@ -3,10 +3,10 @@
 // ── Embedding ────────────────────────────────────────────────────────────────
 
 /** OpenAI embedding model via OpenRouter (OB1 standard). */
-export const EMBEDDING_MODEL = "openai/text-embedding-3-small";
+export const EMBEDDING_MODEL = "intfloat/multilingual-e5-large";
 
 /** Dimensionality of the embedding vectors stored in pgvector. */
-export const EMBEDDING_DIMENSION = 1536;
+export const EMBEDDING_DIMENSION = 1024;
 
 /** Maximum content length (chars) before truncation for embedding calls. */
 export const MAX_CONTENT_LENGTH = 8000;

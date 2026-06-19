@@ -88,7 +88,7 @@ Only extract what is explicitly there.`;
  *
  * OpenRouter (canonical OB1 setup):
  *   POST https://openrouter.ai/api/v1/chat/completions
- *   model: "openai/gpt-4o-mini"
+ *   model: "deepseek/deepseek-v4-flash"
  *
  * Either way: send EXTRACTION_SYSTEM_PROMPT as system message,
  * text as user message, request JSON response format.
@@ -124,7 +124,7 @@ async function extractMetadata(text: string): Promise<ExtractedMetadata> {
  *   model: "text-embedding-3-small" (1536 dimensions)
  *
  * OpenRouter (canonical OB1 setup): POST https://openrouter.ai/api/v1/embeddings
- *   model: "openai/text-embedding-3-small" (1536 dimensions)
+ *   model: "intfloat/multilingual-e5-large" (1536 dimensions)
  */
 async function getEmbedding(text: string): Promise<number[]> {
   // YOUR EMBEDDING CALL HERE — e.g. OpenAI text-embedding-3-small

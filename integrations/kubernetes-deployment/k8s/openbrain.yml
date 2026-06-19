@@ -21,7 +21,7 @@ data:
     CREATE TABLE IF NOT EXISTS thoughts (
         id BIGSERIAL PRIMARY KEY,
         content TEXT NOT NULL,
-        embedding vector(1536),
+        embedding vector(1024),
         metadata JSONB DEFAULT '{}'::jsonb,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
@@ -30,7 +30,7 @@ data:
     CREATE INDEX IF NOT EXISTS idx_thoughts_metadata ON thoughts USING GIN (metadata);
 
     CREATE OR REPLACE FUNCTION match_thoughts(
-        query_embedding vector(1536),
+        query_embedding vector(1024),
         match_threshold FLOAT DEFAULT 0.5,
         match_count INT DEFAULT 10,
         filter JSONB DEFAULT '{}'::jsonb
@@ -146,7 +146,7 @@ spec:
                   name: openbrain-secret
                   key: embedding-api-key
             - name: EMBEDDING_MODEL
-              value: "openai/text-embedding-3-small"
+              value: "intfloat/multilingual-e5-large"
             - name: CHAT_API_BASE
               value: "https://openrouter.ai/api/v1"
             - name: CHAT_API_KEY
@@ -155,7 +155,7 @@ spec:
                   name: openbrain-secret
                   key: chat-api-key
             - name: CHAT_MODEL
-              value: "openai/gpt-4o-mini"
+              value: "deepseek/deepseek-v4-flash"
             - name: PORT
               value: "8000"
           readinessProbe:

@@ -203,7 +203,7 @@ After a successful run:
   - `source_type = 'readwise'`
   - `type = 'reference'`
   - `metadata` containing `readwise_highlight_id`, `readwise_book_id`, `book_title`, `book_author`, `highlighted_at`, `location`, `location_type`, `color`, `url`, and `tags`
-- Every highlight has a 1536-dim embedding, so semantic search in Open Brain immediately surfaces them alongside your other thoughts.
+- Every highlight has a 1024-dim embedding, so semantic search in Open Brain immediately surfaces them alongside your other thoughts.
 
 From any MCP-connected AI you can now ask things like:
 - "What have I highlighted about stoicism?"

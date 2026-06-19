@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION match_thoughts(
-  query_embedding VECTOR(1536),
+  query_embedding VECTOR(1024),
   match_threshold FLOAT DEFAULT 0.7,
   match_count INT DEFAULT 10,
   filter JSONB DEFAULT '{}'::jsonb

@@ -16,7 +16,7 @@
 
 ## What It Does
 
-Runs a Supabase Edge Function as a Telegram bot webhook. Every text message sent to the configured chat becomes a `thoughts` row with an embedding (`openai/text-embedding-3-small`) and LLM-extracted metadata (people, topics, action items, dates, type). The bot replies in-thread with a confirmation so you know capture succeeded. Optional `UPDATE_ON_EDIT` support re-embeds edited messages in place.
+Runs a Supabase Edge Function as a Telegram bot webhook. Every text message sent to the configured chat becomes a `thoughts` row with an embedding (`intfloat/multilingual-e5-large`) and LLM-extracted metadata (people, topics, action items, dates, type). The bot replies in-thread with a confirmation so you know capture succeeded. Optional `UPDATE_ON_EDIT` support re-embeds edited messages in place.
 
 ---
 
@@ -135,7 +135,7 @@ async function getEmbedding(text: string): Promise<number[]> {
       "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ model: "openai/text-embedding-3-small", input: text }),
+    body: JSON.stringify({ model: "intfloat/multilingual-e5-large", input: text }),
   });
   const d = await r.json();
   return d.data[0].embedding;
@@ -149,7 +149,7 @@ async function extractMetadata(text: string): Promise<Record<string, unknown>> {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "openai/gpt-4o-mini",
+      model: "deepseek/deepseek-v4-flash",
       response_format: { type: "json_object" },
       messages: [
         {

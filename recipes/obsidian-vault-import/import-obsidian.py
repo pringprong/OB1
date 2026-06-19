@@ -52,11 +52,11 @@ WHOLE_NOTE_THRESHOLD = 500      # notes under this word count → 1 thought
 LLM_CHUNK_THRESHOLD = 1000     # sections over this → LLM distillation
 
 # Embedding model
-EMBEDDING_MODEL = "openai/text-embedding-3-small"
-EMBEDDING_DIMS = 1536
+EMBEDDING_MODEL = "intfloat/multilingual-e5-large"
+EMBEDDING_DIMS = 1024
 
 # LLM model for chunking long sections
-LLM_MODEL = "openai/gpt-4o-mini"
+LLM_MODEL = "deepseek/deepseek-v4-flash"
 
 # API retry settings
 MAX_RETRIES = 3

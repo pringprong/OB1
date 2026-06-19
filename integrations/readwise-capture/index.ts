@@ -54,7 +54,7 @@ async function getEmbedding(text: string): Promise<number[]> {
       "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ model: "openai/text-embedding-3-small", input: text }),
+    body: JSON.stringify({ model: "intfloat/multilingual-e5-large", input: text }),
   });
   const d = await r.json();
   return d.data[0].embedding;
